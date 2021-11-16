@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,8 +31,7 @@ public class RequestParamController {
   @RequestMapping("/request-param-v2")
   @ResponseBody
   public String requestParamV2(@RequestParam("username") String username,
-                               @RequestParam("age") int age)
-  {
+                               @RequestParam("age") int age) {
     log.info("username={}, age={}", username, age);
     return "ok";
   }
@@ -38,8 +39,7 @@ public class RequestParamController {
   @RequestMapping("/request-param-v3")
   @ResponseBody
   public String requestParamV3(@RequestParam String username,
-                               @RequestParam int age)
-  {
+                               @RequestParam int age) {
     log.info("username={}, age={}", username, age);
     return "ok";
   }
@@ -61,18 +61,32 @@ public class RequestParamController {
   @RequestMapping("/request-param-default")
   @ResponseBody
   public String requestParamDefault(@RequestParam(required = true, defaultValue = "NO") String username,
-                                    @RequestParam(required = false, defaultValue = "0") int age)
-  {
+                                    @RequestParam(required = false, defaultValue = "0") int age) {
     log.info("username = {}, age = {}", username, age);
     return "ok~ default";
   }
 
   @RequestMapping("/request-param-map")
   @ResponseBody
-  public String requestParamMap(@RequestParam Map<String, Object> paramMap)
-  {
+  public String requestParamMap(@RequestParam Map<String, Object> paramMap) {
     log.info("username = {}, age = {}", paramMap.get("username"), paramMap.get("age"));
 
     return "ok~ map";
   }
+
+  @ResponseBody
+  @RequestMapping("/model-attribute-v1")
+  public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+    log.info("helloData = {}", helloData);
+    return "ok";
+  }
+
+  @ResponseBody
+  @RequestMapping("/model-attribute-v2")
+  public String modelAttributeV2(HelloData helloData) {
+    log.info("helloData = {}", helloData);
+    return "ok";
+  }
+
+
 }
